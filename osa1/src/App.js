@@ -1,3 +1,49 @@
+import { useState } from 'react'
+
+const App = () => {
+  // tallenna napit omaan tilaansa
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  return (
+    <div>
+      <Header></Header>
+      <Button text = "good" handleClick={ ()=> setGood(good + 1)} ></Button>
+      <Button text = "neutral" handleClick={ ()=> setNeutral(neutral + 1)} ></Button>
+      <Button text = "bad" handleClick={ ()=> setBad(bad + 1)} ></Button>
+      <Statistics good={good} neutral = {neutral} bad = {bad} ></Statistics>
+    </div>
+  )
+}
+
+const Header = () => {
+  return (
+  <h1> give feedback</h1>
+  )
+}
+
+const Statistics = ({good, neutral, bad}) => {
+return (
+  <div>
+    <h1>statistic</h1>
+    <p>good {good}</p>
+    <p>neutral {neutral}</p>
+    <p>bad {bad}</p>
+  </div>
+  )
+}
+
+const Button = (props) => (
+  <button onClick={props.handleClick }>
+    {props.text}
+  </button>
+)
+export default App
+
+/*
+Teht 1.5
+
 const App = () => {
   const course = {
     name: 'Half Stack application development',
@@ -51,4 +97,4 @@ const Total = (props) => {
   )
 }
 
-export default App
+export default App*/

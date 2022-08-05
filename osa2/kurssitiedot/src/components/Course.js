@@ -18,7 +18,7 @@ const Content =({parts}) => {
   console.log("Content toimii")
   return (
   <div>
-    {parts.map(part => <Part part = {part}></Part>)}
+    {parts.map(part => <Part key={part.id} part = {part}></Part>)}
   </div>
   )
 } 

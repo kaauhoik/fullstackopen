@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import Person from './components/Person'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
     { 
       name: 'Arto Hellas',
       number: '213123',
-      id: 0
+      id: 1
     }
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filterValue, setFilterValue] = useState('')
 
   const handleNumberChange =  (event) => {
     console.log(event.target.value)
@@ -20,6 +23,11 @@ const App = () => {
   const handleNameChange =  (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+  }
+
+  const handleFilterChange =  (event) => {
+    console.log(event.target.value)
+    setFilterValue(event.target.value)
   }
 
   const AddNewName = (event) => {
@@ -43,25 +51,23 @@ const App = () => {
     }
   }
 
-
+  const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filterValue.toLowerCase()) )
   return (
     <div>
       <h2>Phonebook</h2>
-      
-      <form  onSubmit={AddNewName}>
-        <div> 
-          name: <input value= {newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value= {newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Filter filterValue = {filterValue} handleFilterChange = {handleFilterChange}></Filter>
+      <h2>Add a new person</h2>
+      <PersonForm handleNumberChange = {handleNumberChange}
+                  handleNameChange = {handleNameChange}
+                  AddNewName = {AddNewName}
+                  newName = {newName}
+                  newNumber = {newNumber}
+                  >
+                  
+      </PersonForm>
       <h2>Numbers</h2>
       <ul>
-         {persons.map(person =>
+         {filteredPersons.map(person =>
            <Person key={person.id} name={person.name} number = {person.number}></Person>
         )} 
       </ul>
